@@ -134,7 +134,15 @@ Association methods on Sequelize models create the following relationships betwe
 
 `product-routes.js`, `tag-routes.js`, and `category-routes.js` perform create, read, update, and delete operations using Sequelize models.
 
-## Set up '.env' file
+## How to Set up Project
+
+### After cloning project, NPM Install
+
+Clone the project then in the terminal run:
+
+```
+$ npm install
+```
 
 ### Add your credentials to '.env.Template':
 
