@@ -44,7 +44,7 @@ This project uses the [MySQL2](https://www.npmjs.com/package/mysql2) and [Sequel
 
 ### Database Models
 
-Your database should contain the following four models, including the requirements listed for each model:
+The database contains the following four models, including the requirements listed for each model:
 
 - `Category`
 
@@ -148,11 +148,11 @@ Your database should contain the following four models, including the requiremen
 
 ### Associations
 
-You'll need to execute association methods on your Sequelize models to create the following relationships between them:
+Association methods on Sequelize models create the following relationships between them:
 
 - `Product` belongs to `Category`, and `Category` has many `Product` models, as a category can have multiple products but a product can only belong to one category.
 
-- `Product` belongs to many `Tag` models, and `Tag` belongs to many `Product` models. Allow products to have multiple tags and tags to have many products by using the `ProductTag` through model.
+- `Product` belongs to many `Tag` models, and `Tag` belongs to many `Product` models. Products have multiple tags and tags to have many products by using the `ProductTag` through model.
 
 ### API Routes to Perform RESTful CRUD Operations
 
@@ -160,7 +160,7 @@ You'll need to execute association methods on your Sequelize models to create th
 
 ### Seed the Database
 
-Run `npm run seed` to seed data to your database so that you can test routes.
+Run `npm run seed` to seed data the database.
 
 ### Sync Sequelize to the Database on Server Start
 
