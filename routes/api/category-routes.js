@@ -28,16 +28,47 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
+  try {
+    const categoryData = await Category.create(req.body);
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
+  const updateId = req.params.id;
+  try {
+    await Category.update(
+      {
+        category_name: req.body.category_name,
+      },
+      {
+        where: { id: updateId },
+      }
+    );
+    res
+      .status(200)
+      .send(`Updated category id: ${updateId} to ${req.body.category_name}`);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
+  const destroyId = req.params.id;
+  try {
+    await Category.destroy({
+      where: { id: destroyId },
+    });
+    res.status(200).send(`Category id: ${destroyId} has been destroyed`);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
