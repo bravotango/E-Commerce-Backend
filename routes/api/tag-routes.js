@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
-  const updateId = req.params.id;
+  const updateTagId = req.params.id;
   const newTagName = req.body.tag_name;
   try {
     await Tag.update(
@@ -50,13 +50,13 @@ router.put('/:id', async (req, res) => {
       },
       {
         where: {
-          id: updateId,
+          id: updateTagId,
         },
       }
     );
     res
       .status(200)
-      .send(`The tag id: ${updateId} has been updated to: ${newTagName}`);
+      .json(`Updated name to '${newTagName}' for tag_id: ${updateTagId}`);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -69,7 +69,12 @@ router.delete('/:id', async (req, res) => {
     const tagDelete = await Tag.destroy({
       where: { id: deleteId },
     });
-    res.status(200).send(`The tag with id: ${deleteId} has been destroyed`);
+    if (!tagDelete) {
+      res
+        .status(404)
+        .json(`Tag id: ${deleteId} not found, nothing was deleted.`);
+    }
+    res.status(200).json(`Tag id ${deleteId} has been destroyed`);
   } catch (err) {
     res.status(500).json(err);
   }
