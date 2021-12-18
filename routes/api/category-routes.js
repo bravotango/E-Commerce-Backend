@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { response } = require('express');
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
@@ -40,11 +41,12 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
+  const newCategoryName = req.body.category_name;
   const updateId = req.params.id;
   try {
     await Category.update(
       {
-        category_name: req.body.category_name,
+        category_name: newCategoryName,
       },
       {
         where: { id: updateId },
@@ -52,7 +54,9 @@ router.put('/:id', async (req, res) => {
     );
     res
       .status(200)
-      .send(`Updated category id: ${updateId} to ${req.body.category_name}`);
+      .json(
+        `Updated name to '${newCategoryName}' for category_id: ${updateId}`
+      );
   } catch (err) {
     res.status(500).json(err);
   }
@@ -60,12 +64,21 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
-  const destroyId = req.params.id;
+  const deleteCategoryId = req.params.id;
   try {
-    await Category.destroy({
-      where: { id: destroyId },
+    const deleteCategory = await Category.destroy({
+      where: { id: deleteCategoryId },
     });
-    res.status(200).send(`Category id: ${destroyId} has been destroyed`);
+
+    if (!deleteCategory) {
+      res
+        .status(404)
+        .json(
+          `Category id: ${deleteCategoryId} not found, nothing was deleted.`
+        );
+    }
+
+    res.status(200).json(`Category id: ${deleteCategoryId} has been destroyed`);
   } catch (err) {
     res.status(500).json(err);
   }
