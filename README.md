@@ -192,7 +192,7 @@ Code in `server.js` will sync the Sequelize models to the MySQL database on serv
 
 Walkthrough video demonstrating the functionality of the e-commerce back end:
 
-# (video)[video]
+[https://watch.screencastify.com/v/vrHEd4Y7cpJMMGTTD2yK](https://watch.screencastify.com/v/vrHEd4Y7cpJMMGTTD2yK)
 
 - This walkthrough video shows all of the technical acceptance criteria being met.
 
